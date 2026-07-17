@@ -10,6 +10,7 @@ import '../../features/shell/workspace_setup_screen.dart';
 import '../../features/shell/workspace_missing_screen.dart';
 import '../../features/shell/main_shell.dart';
 import '../storage/workspace_provider.dart';
+import '../widgets/update_listener_wrapper.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final wsState = ref.watch(workspaceProvider);
@@ -51,7 +52,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
-          return MainShell(navigationShell: navigationShell);
+          return UpdateListenerWrapper(
+            child: MainShell(navigationShell: navigationShell),
+          );
         },
         branches: [
           StatefulShellBranch(
