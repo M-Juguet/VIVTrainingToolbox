@@ -2,7 +2,7 @@
 ; REMARQUE : La valeur de AppId identifie l'application. Ne la modifiez pas si vous publiez des mises à jour !
 AppId={{D3B3C842-83A5-4874-90BC-68C1B6CA11C2}
 AppName=VIV Formation Toolbox
-AppVersion=0.1.0
+AppVersion=0.1.1
 AppPublisher=VIV
 ; Installation au niveau utilisateur pour éviter l'UAC (nécessaire pour les MAJ automatiques silencieuses)
 DefaultDirName={userpf}\VIVFormationToolbox
@@ -10,7 +10,7 @@ DefaultGroupName=VIV Formation
 SetupIconFile=windows\runner\resources\app_icon.ico
 PrivilegesRequired=lowest
 OutputDir=Output
-OutputBaseFilename=viv_formation_toolbox_setup_v0.1.0
+OutputBaseFilename=viv_formation_toolbox_setup_v0.1.1
 Compression=lzma
 SolidCompression=yes
 ; Force la fermeture de l'application Flutter en cours d'exécution

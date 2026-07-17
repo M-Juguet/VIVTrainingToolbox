@@ -343,6 +343,7 @@ class _MainShellState extends ConsumerState<MainShell> {
                           ),
                         ),
                       ),
+                      _buildWindowControls(),
                     ],
                   ),
                 ),
@@ -635,6 +636,78 @@ class _MainShellState extends ConsumerState<MainShell> {
               ),
               ?trailing,
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWindowControls() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _WindowButton(
+          icon: LucideIcons.minus,
+          onTap: () => windowManager.minimize(),
+        ),
+        _WindowButton(
+          icon: LucideIcons.square,
+          onTap: () async {
+            if (await windowManager.isMaximized()) {
+              windowManager.unmaximize();
+            } else {
+              windowManager.maximize();
+            }
+          },
+        ),
+        _WindowButton(
+          icon: LucideIcons.x,
+          onTap: () => windowManager.close(),
+          isClose: true,
+        ),
+      ],
+    );
+  }
+}
+
+class _WindowButton extends StatefulWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+  final bool isClose;
+
+  const _WindowButton({
+    required this.icon,
+    required this.onTap,
+    this.isClose = false,
+  });
+
+  @override
+  State<_WindowButton> createState() => _WindowButtonState();
+}
+
+class _WindowButtonState extends State<_WindowButton> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final hoverBgColor = widget.isClose ? const Color(0xFFE81123) : VivColors.gray100;
+    final iconColor = (_isHovered && widget.isClose) ? Colors.white : VivColors.black;
+
+    return ExcludeSemantics(
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: Container(
+            width: 48,
+            height: double.infinity,
+            color: _isHovered ? hoverBgColor : Colors.transparent,
+            child: Icon(
+              widget.icon,
+              size: 14,
+              color: iconColor,
+            ),
           ),
         ),
       ),
